@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://humancronadmin.github.io/nisa-investment-guide/sitemap.xml
