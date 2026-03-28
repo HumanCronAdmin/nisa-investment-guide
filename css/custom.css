@@ -1,0 +1,133 @@
+/* Custom styles beyond Tailwind */
+
+/* Smooth scrolling */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Custom slider styling */
+input[type="range"] {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 100%;
+  height: 8px;
+  border-radius: 4px;
+  background: #374151;
+  outline: none;
+}
+
+input[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  background: #3B82F6;
+  cursor: pointer;
+  border: 2px solid #1E40AF;
+  transition: background 0.2s;
+}
+
+input[type="range"]::-webkit-slider-thumb:hover {
+  background: #2563EB;
+}
+
+input[type="range"]::-moz-range-thumb {
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  background: #3B82F6;
+  cursor: pointer;
+  border: 2px solid #1E40AF;
+}
+
+/* Risk tolerance radio buttons - custom styling */
+.risk-option input[type="radio"] {
+  display: none;
+}
+
+.risk-option label {
+  display: block;
+  padding: 0.75rem 1.5rem;
+  border-radius: 0.5rem;
+  border: 2px solid #4B5563;
+  cursor: pointer;
+  text-align: center;
+  transition: all 0.2s;
+  font-weight: 500;
+}
+
+.risk-option label:hover {
+  border-color: #3B82F6;
+  background-color: rgba(59, 130, 246, 0.1);
+}
+
+.risk-option input[type="radio"]:checked + label {
+  border-color: #3B82F6;
+  background-color: rgba(59, 130, 246, 0.2);
+  color: #93C5FD;
+}
+
+/* Chart container */
+.chart-container {
+  position: relative;
+  height: 400px;
+  width: 100%;
+}
+
+@media (max-width: 640px) {
+  .chart-container {
+    height: 300px;
+  }
+}
+
+/* Comparison table responsive */
+.table-responsive {
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+/* Detail cards */
+.detail-card {
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.detail-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+}
+
+/* CTA button animation */
+.cta-button {
+  transition: all 0.2s;
+}
+
+.cta-button:hover {
+  transform: scale(1.02);
+}
+
+/* Pulse animation for Compare button */
+@keyframes subtle-pulse {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(59, 130, 246, 0.4); }
+  50% { box-shadow: 0 0 0 8px rgba(59, 130, 246, 0); }
+}
+
+.pulse-button {
+  animation: subtle-pulse 2s infinite;
+}
+
+/* Hide number input arrows */
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+input[type="number"] {
+  -moz-appearance: textfield;
+}
+
+/* bg-gray-750 custom shade */
+.hover\:bg-gray-750:hover {
+  background-color: #2a2f3a;
+}
