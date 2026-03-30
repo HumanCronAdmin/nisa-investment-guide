@@ -153,6 +153,7 @@ function runComparison() {
 
   // Show results section
   document.getElementById('resultsSection').classList.remove('hidden');
+  gtag('event', 'investment_simulated', {monthly_amount: monthlyAmount, period_years: years, risk_level: riskLevel});
 
   // Render chart
   renderComparisonChart(results);
