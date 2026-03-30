@@ -30,17 +30,18 @@
     "description": "Compare investment options beyond NISA in Japan - iDeCo, taxable accounts, overseas brokers, and savings.",
     "applicationCategory": "FinanceApplication",
     "operatingSystem": "Any",
-    "offers": {
-      "@type": "Offer",
-      "price": "0",
-      "priceCurrency": "JPY"
-    }
+    "offers": { "@type": "Offer", "price": "0", "priceCurrency": "JPY" }
   }
   </script>
   <script src="https://cdn.tailwindcss.com"></script>
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <link rel="stylesheet" href="css/custom.css">
-<!-- Google Analytics 4 -->
+  <style>
+    @media (max-width: 480px) {
+      h1 { font-size: 1.5rem !important; }
+      .detail-card { padding: 1rem !important; }
+    }
+  </style>
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-H1N5PR9Y0H"></script>
 <script>
   window.dataLayer = window.dataLayer || [];
@@ -51,328 +52,71 @@
 </head>
 <body class="bg-gray-900 text-gray-200 min-h-screen">
 
-  <!-- Header -->
   <header class="bg-gray-800 border-b border-gray-700">
     <div class="max-w-5xl mx-auto px-4 py-8 text-center">
-      <h1 class="text-3xl md:text-4xl font-bold text-white mb-3">
-        Beyond NISA: What's Next for Your Investments in Japan?
-      </h1>
-      <p class="text-gray-400 text-lg max-w-2xl mx-auto">
-        Maxed out your NISA contributions? Compare iDeCo, taxable accounts, overseas brokers, and savings options to find your best next move.
-      </p>
+      <h1 class="text-3xl md:text-4xl font-bold text-white mb-3">Beyond NISA: What's Next for Your Investments in Japan?</h1>
+      <p class="text-gray-400 text-lg max-w-2xl mx-auto">Maxed out your NISA contributions? Compare iDeCo, taxable accounts, overseas brokers, and savings options to find your best next move.</p>
     </div>
   </header>
-
-  <!-- Input Section -->
   <section class="max-w-5xl mx-auto px-4 py-10">
     <div class="bg-gray-800 rounded-xl p-6 md:p-8 border border-gray-700">
       <h2 class="text-2xl font-bold text-white mb-6">Your Investment Profile</h2>
-
-      <!-- Monthly Investment Amount -->
       <div class="mb-6">
-        <label class="block text-sm font-medium text-gray-300 mb-2">
-          Monthly Investment Amount
-        </label>
+        <label class="block text-sm font-medium text-gray-300 mb-2">Monthly Investment Amount</label>
         <div class="flex items-center gap-4 mb-2">
-          <input
-            type="range"
-            id="monthlySlider"
-            min="10000"
-            max="500000"
-            step="5000"
-            value="50000"
-            aria-label="Monthly investment amount slider"
-            oninput="syncSlider(); updateDisplayAmount();"
-          >
+          <input type="range" id="monthlySlider" min="10000" max="500000" step="5000" value="50000" aria-label="Monthly investment amount slider" oninput="syncSlider(); updateDisplayAmount();">
         </div>
         <div class="flex items-center gap-3">
           <span class="text-gray-500 text-sm">&yen;</span>
-          <input
-            type="number"
-            id="monthlyAmount"
-            value="50000"
-            min="10000"
-            max="500000"
-            step="5000"
-            aria-label="Monthly investment amount in yen"
-            class="bg-gray-700 text-white rounded-lg px-4 py-2 w-36 border border-gray-600 focus:border-blue-500 focus:outline-none"
-            oninput="syncInput(); updateDisplayAmount();"
-          >
+          <input type="number" id="monthlyAmount" value="50000" min="10000" max="500000" step="5000" aria-label="Monthly investment amount in yen" class="bg-gray-700 text-white rounded-lg px-4 py-2 w-36 border border-gray-600 focus:border-blue-500 focus:outline-none" oninput="syncInput(); updateDisplayAmount();">
           <span id="amountDisplay" class="text-blue-400 font-medium">&yen;50,000 /month</span>
         </div>
       </div>
-
-      <!-- Investment Period -->
       <div class="mb-6">
-        <label class="block text-sm font-medium text-gray-300 mb-2">
-          Investment Period
-        </label>
-        <select
-          id="investmentPeriod"
-          class="bg-gray-700 text-white rounded-lg px-4 py-2 w-full md:w-48 border border-gray-600 focus:border-blue-500 focus:outline-none"
-        >
-          <option value="1">1 year</option>
-          <option value="3">3 years</option>
-          <option value="5" selected>5 years</option>
-          <option value="10">10 years</option>
-          <option value="15">15 years</option>
-          <option value="20">20 years</option>
-          <option value="25">25 years</option>
-          <option value="30">30 years</option>
-        </select>
+        <label class="block text-sm font-medium text-gray-300 mb-2">Investment Period</label>
+        <select id="investmentPeriod" class="bg-gray-700 text-white rounded-lg px-4 py-2 w-full md:w-48 border border-gray-600 focus:border-blue-500 focus:outline-none"></select>
       </div>
-
-      <!-- Risk Tolerance -->
       <div class="mb-8">
-        <label class="block text-sm font-medium text-gray-300 mb-3">
-          Risk Tolerance
-        </label>
-        <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
-          <div class="risk-option">
-            <input type="radio" name="riskTolerance" id="riskConservative" value="conservative">
-            <label for="riskConservative">
-              <span class="block text-lg">Conservative</span>
-              <span class="block text-xs text-gray-400 mt-1">Capital preservation first</span>
-            </label>
-          </div>
-          <div class="risk-option">
-            <input type="radio" name="riskTolerance" id="riskBalanced" value="balanced" checked>
-            <label for="riskBalanced">
-              <span class="block text-lg">Balanced</span>
-              <span class="block text-xs text-gray-400 mt-1">Growth &amp; stability mix</span>
-            </label>
-          </div>
-          <div class="risk-option">
-            <input type="radio" name="riskTolerance" id="riskAggressive" value="aggressive">
-            <label for="riskAggressive">
-              <span class="block text-lg">Aggressive</span>
-              <span class="block text-xs text-gray-400 mt-1">Maximize growth potential</span>
-            </label>
-          </div>
-        </div>
+        <label class="block text-sm font-medium text-gray-300 mb-3">Risk Tolerance</label>
+        <div id="riskToleranceContainer" class="grid grid-cols-1 sm:grid-cols-3 gap-3"></div>
       </div>
-
-      <!-- Compare Button -->
-      <button
-        onclick="runComparison()"
-        class="w-full sm:w-auto bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-10 rounded-lg text-lg pulse-button cta-button"
-      >
-        Compare Investment Options
-      </button>
+      <button onclick="runComparison()" class="w-full sm:w-auto bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-10 rounded-lg text-lg pulse-button cta-button">Compare Investment Options</button>
     </div>
   </section>
-
-  <!-- Results Section (hidden until comparison runs) -->
   <section id="resultsSection" class="hidden max-w-5xl mx-auto px-4 pb-10">
-
-    <!-- Chart -->
     <div class="bg-gray-800 rounded-xl p-6 md:p-8 border border-gray-700 mb-8">
       <h2 class="text-2xl font-bold text-white mb-4">Comparison Chart</h2>
-      <div class="chart-container">
-        <canvas id="comparisonChartCanvas"></canvas>
-      </div>
+      <div class="chart-container"><canvas id="comparisonChartCanvas"></canvas></div>
     </div>
-
-    <!-- Comparison Table -->
     <div class="bg-gray-800 rounded-xl p-6 md:p-8 border border-gray-700 mb-8">
       <h2 class="text-2xl font-bold text-white mb-4">Detailed Comparison</h2>
-      <div class="table-responsive">
-        <table class="w-full text-sm">
-          <thead>
-            <tr class="border-b border-gray-600 text-gray-400">
-              <th class="py-3 px-4 text-left">Option</th>
-              <th class="py-3 px-4 text-right">Contributed</th>
-              <th class="py-3 px-4 text-right">Gross Value</th>
-              <th class="py-3 px-4 text-right">Gross Gain</th>
-              <th class="py-3 px-4 text-right">Tax</th>
-              <th class="py-3 px-4 text-right">After-Tax Value</th>
-              <th class="py-3 px-4 text-right">Ann. Return</th>
-            </tr>
-          </thead>
-          <tbody id="comparisonTableBody">
-          </tbody>
-        </table>
-      </div>
+      <div class="table-responsive"><table class="w-full text-sm"><thead><tr class="border-b border-gray-600 text-gray-400">
+        <th class="py-3 px-4 text-left">Option</th><th class="py-3 px-4 text-right">Contributed</th><th class="py-3 px-4 text-right">Gross Value</th><th class="py-3 px-4 text-right">Gross Gain</th><th class="py-3 px-4 text-right">Tax</th><th class="py-3 px-4 text-right">After-Tax Value</th><th class="py-3 px-4 text-right">Ann. Return</th>
+      </tr></thead><tbody id="comparisonTableBody"></tbody></table></div>
     </div>
-
-    <!-- Recommendations -->
-    <div class="bg-gray-800 rounded-xl p-6 md:p-8 border border-gray-700 mb-8" id="recommendations">
-    </div>
+    <div class="bg-gray-800 rounded-xl p-6 md:p-8 border border-gray-700 mb-8" id="recommendations"></div>
   </section>
-
-  <!-- US Tax Obligations Warning -->
   <section class="max-w-5xl mx-auto px-4 pb-6">
     <div class="bg-amber-900/30 border border-amber-600 rounded-xl p-6 md:p-8">
       <h2 class="text-xl font-bold text-amber-400 mb-3">US Tax Obligations? Read This First</h2>
-      <p class="text-gray-300 text-sm mb-4">
-        If you are a US citizen, green card holder, or otherwise have US tax filing obligations, Japanese investment accounts have significant implications:
-      </p>
-      <ul class="text-sm text-gray-400 list-disc list-inside space-y-2 mb-4">
-        <li><strong class="text-gray-300">NISA is NOT tax-free for you.</strong> The US does not recognize NISA's tax-exempt status. All gains, dividends, and interest must be reported on your US return.</li>
-        <li><strong class="text-gray-300">iDeCo contributions are NOT deductible</strong> on your US return. Withdrawals may be taxed by both countries (treaty relief may apply).</li>
-        <li><strong class="text-gray-300">PFIC rules apply.</strong> Japanese mutual funds (toushin) are classified as Passive Foreign Investment Companies. This can result in punitive US taxation. US-listed ETFs (e.g., VT, VTI) held through an overseas broker avoid this issue.</li>
-        <li><strong class="text-gray-300">FBAR and FATCA reporting required.</strong> If your combined foreign accounts exceed $10,000 at any point, file FinCEN 114 (FBAR). FATCA Form 8938 may also be required.</li>
-        <li><strong class="text-gray-300">Foreign tax credits</strong> can offset double taxation, but the calculation is complex. Use Form 1116.</li>
-      </ul>
-      <p class="text-xs text-gray-500">
-        This is not tax advice. Consult a US-Japan cross-border tax specialist. Common recommendations include: use iDeCo with caution, avoid Japanese mutual funds (use US-listed ETFs instead), and always file both returns.
-      </p>
+      <p class="text-gray-300 text-sm mb-4">If you are a US citizen, green card holder, or otherwise have US tax filing obligations, Japanese investment accounts have significant implications:</p>
+      <ul id="usTaxList" class="text-sm text-gray-400 list-disc list-inside space-y-2 mb-4"></ul>
+      <p class="text-xs text-gray-500">This is not tax advice. Consult a US-Japan cross-border tax specialist. Common recommendations include: use iDeCo with caution, avoid Japanese mutual funds (use US-listed ETFs instead), and always file both returns.</p>
     </div>
   </section>
-
-  <!-- Detail Sections for Each Investment Option -->
   <section class="max-w-5xl mx-auto px-4 pb-10">
     <h2 class="text-2xl font-bold text-white mb-6">Investment Options in Detail</h2>
-
-    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-
-      <!-- iDeCo -->
-      <div class="detail-card bg-gray-800 rounded-xl p-6 border border-gray-700" style="border-left: 4px solid #3B82F6;">
-        <h3 class="text-xl font-bold text-white mb-2">iDeCo</h3>
-        <p class="text-sm text-blue-400 mb-3">Individual Defined Contribution Pension</p>
-        <p class="text-gray-400 text-sm mb-4">
-          Japan's tax-advantaged retirement savings plan. Contributions reduce your taxable income, and investment gains grow tax-free until withdrawal at age 60+. Monthly contribution limits apply (e.g., &yen;23,000 for most company employees).
-        </p>
-        <div class="mb-3">
-          <h4 class="text-sm font-semibold text-green-400 mb-1">Pros</h4>
-          <ul class="text-sm text-gray-400 list-disc list-inside space-y-1">
-            <li>Tax-deductible contributions</li>
-            <li>Tax-free growth during accumulation</li>
-            <li>Retirement income deduction at withdrawal</li>
-            <li>Wide range of low-cost index funds</li>
-          </ul>
-        </div>
-        <div class="mb-4">
-          <h4 class="text-sm font-semibold text-red-400 mb-1">Cons</h4>
-          <ul class="text-sm text-gray-400 list-disc list-inside space-y-1">
-            <li>Cannot withdraw until age 60</li>
-            <li>Low monthly contribution limits</li>
-            <li>Management fees vary by provider</li>
-          </ul>
-        </div>
-        <a href="https://www.ideco-koushiki.jp/english/"
-           target="_blank" rel="noopener noreferrer"
-           class="inline-block bg-blue-600 hover:bg-blue-700 text-white font-medium py-2 px-5 rounded-lg text-sm cta-button">
-          Official iDeCo Guide (National Pension Fund) &rarr;
-        </a>
-      </div>
-
-      <!-- Tokutei Koza -->
-      <div class="detail-card bg-gray-800 rounded-xl p-6 border border-gray-700" style="border-left: 4px solid #10B981;">
-        <h3 class="text-xl font-bold text-white mb-2">Taxable Brokerage Account</h3>
-        <p class="text-sm text-green-400 mb-3">Tokutei Koza (Special Account)</p>
-        <p class="text-gray-400 text-sm mb-4">
-          A standard taxable account at a Japanese broker. No contribution limits, full liquidity, and the option for automatic tax withholding. Gains are taxed at a flat 20.315%.
-        </p>
-        <div class="mb-3">
-          <h4 class="text-sm font-semibold text-green-400 mb-1">Pros</h4>
-          <ul class="text-sm text-gray-400 list-disc list-inside space-y-1">
-            <li>No contribution limits</li>
-            <li>Withdraw anytime</li>
-            <li>Automatic tax withholding option</li>
-            <li>Wide range of investment products</li>
-          </ul>
-        </div>
-        <div class="mb-4">
-          <h4 class="text-sm font-semibold text-red-400 mb-1">Cons</h4>
-          <ul class="text-sm text-gray-400 list-disc list-inside space-y-1">
-            <li>Gains taxed at 20.315%</li>
-            <li>No tax deduction on contributions</li>
-            <li>Dividends also taxed</li>
-          </ul>
-        </div>
-        <a href="https://www.jpx.co.jp/english/equities/products/foreign/index.html"
-           target="_blank" rel="noopener noreferrer"
-           class="inline-block bg-green-600 hover:bg-green-700 text-white font-medium py-2 px-5 rounded-lg text-sm cta-button">
-          Japan Exchange Group — Account Types &rarr;
-        </a>
-      </div>
-
-      <!-- Overseas Brokerage -->
-      <div class="detail-card bg-gray-800 rounded-xl p-6 border border-gray-700" style="border-left: 4px solid #F59E0B;">
-        <h3 class="text-xl font-bold text-white mb-2">Overseas Brokerage</h3>
-        <p class="text-sm text-amber-400 mb-3">e.g., Interactive Brokers</p>
-        <p class="text-gray-400 text-sm mb-4">
-          Access US ETFs and international markets directly. Often lower expense ratios, but requires self-filing taxes in Japan and carries currency exchange risk.
-        </p>
-        <div class="mb-3">
-          <h4 class="text-sm font-semibold text-green-400 mb-1">Pros</h4>
-          <ul class="text-sm text-gray-400 list-disc list-inside space-y-1">
-            <li>Direct access to US ETFs with ultra-low fees</li>
-            <li>Broader investment universe</li>
-            <li>Multi-currency accounts</li>
-            <li>Fractional shares available</li>
-          </ul>
-        </div>
-        <div class="mb-4">
-          <h4 class="text-sm font-semibold text-red-400 mb-1">Cons</h4>
-          <ul class="text-sm text-gray-400 list-disc list-inside space-y-1">
-            <li>Currency exchange risk (JPY/USD)</li>
-            <li>Must file annual tax return</li>
-            <li>US dividend withholding tax (10%)</li>
-            <li>Foreign asset reporting requirements</li>
-          </ul>
-        </div>
-        <a href="https://www.interactivebrokers.com/"
-           target="_blank" rel="noopener noreferrer"
-           class="inline-block bg-amber-600 hover:bg-amber-700 text-white font-medium py-2 px-5 rounded-lg text-sm cta-button">
-          Open Account (Interactive Brokers) &rarr;
-        </a>
-      </div>
-
-      <!-- Savings & Bonds -->
-      <div class="detail-card bg-gray-800 rounded-xl p-6 border border-gray-700" style="border-left: 4px solid #6B7280;">
-        <h3 class="text-xl font-bold text-white mb-2">Savings &amp; Government Bonds</h3>
-        <p class="text-sm text-gray-400 mb-3">Bank Deposits &amp; JGBs</p>
-        <p class="text-gray-400 text-sm mb-4">
-          The safest option with principal protection. Bank deposits are insured up to &yen;10 million per institution. Returns are minimal but capital is secure.
-        </p>
-        <div class="mb-3">
-          <h4 class="text-sm font-semibold text-green-400 mb-1">Pros</h4>
-          <ul class="text-sm text-gray-400 list-disc list-inside space-y-1">
-            <li>Principal protection</li>
-            <li>Deposit insurance up to &yen;10M</li>
-            <li>High liquidity</li>
-            <li>Government-backed bonds</li>
-          </ul>
-        </div>
-        <div class="mb-4">
-          <h4 class="text-sm font-semibold text-red-400 mb-1">Cons</h4>
-          <ul class="text-sm text-gray-400 list-disc list-inside space-y-1">
-            <li>Very low returns (often below inflation)</li>
-            <li>Interest taxed at 20.315%</li>
-            <li>Significant opportunity cost</li>
-            <li>JGBs have 1-year minimum hold</li>
-          </ul>
-        </div>
-        <a href="https://www.mof.go.jp/english/policy/jgbs/index.html"
-           target="_blank" rel="noopener noreferrer"
-           class="inline-block bg-gray-600 hover:bg-gray-700 text-white font-medium py-2 px-5 rounded-lg text-sm cta-button">
-          Learn About Government Bonds &rarr;
-        </a>
-      </div>
-
-    </div>
+    <div id="detailCardsContainer" class="grid grid-cols-1 md:grid-cols-2 gap-6"></div>
   </section>
 
-  <!-- Footer -->
   <footer class="bg-gray-800 border-t border-gray-700 mt-10">
     <div class="max-w-5xl mx-auto px-4 py-8">
-      <!-- Disclaimer -->
       <div class="bg-gray-900 rounded-lg p-4 mb-6 border border-gray-700">
-        <p class="text-xs text-gray-500 leading-relaxed">
-          <strong>Disclaimer:</strong> This tool is for informational and educational purposes only and does not constitute investment advice, tax advice, or a recommendation to buy or sell any financial product. The calculations are simplified estimates based on assumed rates of return and may not reflect actual results. Tax rules and investment regulations are subject to change. Please consult a qualified financial advisor or tax professional before making any investment decisions. Past performance is not indicative of future results.
-        </p>
+        <p class="text-xs text-gray-500 leading-relaxed"><strong>Disclaimer:</strong> This tool is for informational and educational purposes only and does not constitute investment advice, tax advice, or a recommendation to buy or sell any financial product. The calculations are simplified estimates based on assumed rates of return and may not reflect actual results. Tax rules and investment regulations are subject to change. Please consult a qualified financial advisor or tax professional before making any investment decisions. Past performance is not indicative of future results.</p>
       </div>
-
-      <!-- Ad Space -->
       <div class="text-center mb-6">
-        <!-- Google AdSense placeholder -->
-        <div class="bg-gray-900 rounded-lg p-4 border border-gray-700 border-dashed">
-          <p class="text-xs text-gray-600">Ad Space</p>
-        </div>
+        <div class="bg-gray-900 rounded-lg p-4 border border-gray-700 border-dashed"><p class="text-xs text-gray-600">Ad Space</p></div>
       </div>
-
       <div class="text-center text-gray-500 text-sm">
         <p>&copy; 2026 Beyond NISA Investment Guide. All rights reserved.</p>
         <p class="mt-1">Built for the international investor community in Japan.</p>
@@ -380,14 +124,64 @@
     </div>
   </footer>
 
-  <!-- Scripts -->
   <script src="js/data.js"></script>
   <script src="js/calculator.js"></script>
   <script src="js/chart.js"></script>
   <script>
-    if ('serviceWorker' in navigator) {
-      navigator.serviceWorker.register('sw.js');
-    }
+  if ('serviceWorker' in navigator) { navigator.serviceWorker.register('sw.js'); }
+
+  const periodOptions = [1,3,5,10,15,20,25,30];
+  const periodSel = document.getElementById('investmentPeriod');
+  periodOptions.forEach(y => { const o = document.createElement('option'); o.value = y; o.textContent = y + ' year' + (y > 1 ? 's' : ''); if (y === 5) o.selected = true; periodSel.appendChild(o); });
+
+  const riskChoices = [
+    { id: 'riskConservative', value: 'conservative', label: 'Conservative', desc: 'Capital preservation first' },
+    { id: 'riskBalanced', value: 'balanced', label: 'Balanced', desc: 'Growth & stability mix', checked: true },
+    { id: 'riskAggressive', value: 'aggressive', label: 'Aggressive', desc: 'Maximize growth potential' }
+  ];
+  const riskC = document.getElementById('riskToleranceContainer');
+  riskChoices.forEach(r => {
+    riskC.innerHTML += `<div class="risk-option"><input type="radio" name="riskTolerance" id="${r.id}" value="${r.value}"${r.checked ? ' checked' : ''}><label for="${r.id}"><span class="block text-lg">${r.label}</span><span class="block text-xs text-gray-400 mt-1">${r.desc}</span></label></div>`;
+  });
+
+  const usTaxItems = [
+    ['NISA is NOT tax-free for you.', 'The US does not recognize NISA\'s tax-exempt status. All gains, dividends, and interest must be reported on your US return.'],
+    ['iDeCo contributions are NOT deductible', 'on your US return. Withdrawals may be taxed by both countries (treaty relief may apply).'],
+    ['PFIC rules apply.', 'Japanese mutual funds (toushin) are classified as Passive Foreign Investment Companies. This can result in punitive US taxation. US-listed ETFs (e.g., VT, VTI) held through an overseas broker avoid this issue.'],
+    ['FBAR and FATCA reporting required.', 'If your combined foreign accounts exceed $10,000 at any point, file FinCEN 114 (FBAR). FATCA Form 8938 may also be required.'],
+    ['Foreign tax credits', 'can offset double taxation, but the calculation is complex. Use Form 1116.']
+  ];
+  const usTaxList = document.getElementById('usTaxList');
+  usTaxItems.forEach(([bold, rest]) => { usTaxList.innerHTML += `<li><strong class="text-gray-300">${bold}</strong> ${rest}</li>`; });
+
+  const detailCards = [
+    { title: 'iDeCo', subtitle: 'Individual Defined Contribution Pension', color: '#3B82F6', colorClass: 'blue', subtitleClass: 'text-blue-400',
+      desc: 'Japan\'s tax-advantaged retirement savings plan. Contributions reduce your taxable income, and investment gains grow tax-free until withdrawal at age 60+. Monthly contribution limits apply (e.g., &yen;23,000 for most company employees).',
+      pros: ['Tax-deductible contributions','Tax-free growth during accumulation','Retirement income deduction at withdrawal','Wide range of low-cost index funds'],
+      cons: ['Cannot withdraw until age 60','Low monthly contribution limits','Management fees vary by provider'],
+      linkUrl: 'https://www.ideco-koushiki.jp/english/', linkText: 'Official iDeCo Guide (National Pension Fund)' },
+    { title: 'Taxable Brokerage Account', subtitle: 'Tokutei Koza (Special Account)', color: '#10B981', colorClass: 'green', subtitleClass: 'text-green-400',
+      desc: 'A standard taxable account at a Japanese broker. No contribution limits, full liquidity, and the option for automatic tax withholding. Gains are taxed at a flat 20.315%.',
+      pros: ['No contribution limits','Withdraw anytime','Automatic tax withholding option','Wide range of investment products'],
+      cons: ['Gains taxed at 20.315%','No tax deduction on contributions','Dividends also taxed'],
+      linkUrl: 'https://www.jpx.co.jp/english/equities/products/foreign/index.html', linkText: 'Japan Exchange Group \u2014 Account Types' },
+    { title: 'Overseas Brokerage', subtitle: 'e.g., Interactive Brokers', color: '#F59E0B', colorClass: 'amber', subtitleClass: 'text-amber-400',
+      desc: 'Access US ETFs and international markets directly. Often lower expense ratios, but requires self-filing taxes in Japan and carries currency exchange risk.',
+      pros: ['Direct access to US ETFs with ultra-low fees','Broader investment universe','Multi-currency accounts','Fractional shares available'],
+      cons: ['Currency exchange risk (JPY/USD)','Must file annual tax return','US dividend withholding tax (10%)','Foreign asset reporting requirements'],
+      linkUrl: 'https://www.interactivebrokers.com/', linkText: 'Open Account (Interactive Brokers)' },
+    { title: 'Savings &amp; Government Bonds', subtitle: 'Bank Deposits &amp; JGBs', color: '#6B7280', colorClass: 'gray', subtitleClass: 'text-gray-400',
+      desc: 'The safest option with principal protection. Bank deposits are insured up to &yen;10 million per institution. Returns are minimal but capital is secure.',
+      pros: ['Principal protection','Deposit insurance up to &yen;10M','High liquidity','Government-backed bonds'],
+      cons: ['Very low returns (often below inflation)','Interest taxed at 20.315%','Significant opportunity cost','JGBs have 1-year minimum hold'],
+      linkUrl: 'https://www.mof.go.jp/english/policy/jgbs/index.html', linkText: 'Learn About Government Bonds' }
+  ];
+  const cardsC = document.getElementById('detailCardsContainer');
+  detailCards.forEach(c => {
+    const prosHtml = c.pros.map(p => `<li>${p}</li>`).join('');
+    const consHtml = c.cons.map(p => `<li>${p}</li>`).join('');
+    cardsC.innerHTML += `<div class="detail-card bg-gray-800 rounded-xl p-6 border border-gray-700" style="border-left:4px solid ${c.color}"><h3 class="text-xl font-bold text-white mb-2">${c.title}</h3><p class="text-sm ${c.subtitleClass} mb-3">${c.subtitle}</p><p class="text-gray-400 text-sm mb-4">${c.desc}</p><div class="mb-3"><h4 class="text-sm font-semibold text-green-400 mb-1">Pros</h4><ul class="text-sm text-gray-400 list-disc list-inside space-y-1">${prosHtml}</ul></div><div class="mb-4"><h4 class="text-sm font-semibold text-red-400 mb-1">Cons</h4><ul class="text-sm text-gray-400 list-disc list-inside space-y-1">${consHtml}</ul></div><a href="${c.linkUrl}" target="_blank" rel="noopener noreferrer" class="inline-block bg-${c.colorClass}-600 hover:bg-${c.colorClass}-700 text-white font-medium py-2 px-5 rounded-lg text-sm cta-button">${c.linkText} &rarr;</a></div>`;
+  });
   </script>
 </body>
 </html>
